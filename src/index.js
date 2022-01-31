@@ -2,13 +2,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
-import firebase from "fbsetting";
 import "./css/tailwind.css";
-console.log(firebase);
+import { RecoilRoot } from "recoil";
 
 ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
+    <RecoilRoot>
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
+    </RecoilRoot>,
     document.getElementById("root")
 );

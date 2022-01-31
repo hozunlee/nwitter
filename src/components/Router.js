@@ -1,21 +1,41 @@
-import React, { useState } from "react";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import React from "react";
+import {
+    HashRouter as Router,
+    Redirect,
+    Route,
+    Switch,
+} from "react-router-dom";
 import Auth from "routes/Auth";
 import Home from "routes/Home";
+import Profile from "routes/Profile";
+import Nav from "components/Nav";
 
-function AppRouter({ isLoggedIn }) {
+function AppRouter({ isLoggedIn, userObj }) {
+    console.log(isLoggedIn);
     return (
         <Router>
+            {isLoggedIn && <Nav />}
             <Switch>
                 {isLoggedIn ? (
                     <>
-                        <Route path="/" exact component={Home} />
+                        <Route
+                            path="/"
+                            exact
+                            render={() => <Home userObj={userObj} />}
+                        />
+                        <Route
+                            path="/profile"
+                            exact
+                            render={() => <Profile userObj={userObj} />}
+                        />
+                        <Redirect from="*" to="/" />
                     </>
                 ) : (
                     <>
                         <Route>
                             <Route path="/" exact component={Auth} />
                         </Route>
+                        <Redirect from="*" to="/" />
                     </>
                 )}
             </Switch>
