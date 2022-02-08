@@ -17,23 +17,29 @@ function App() {
             if (user) {
                 setIsLoggedIn(true);
                 setUserObj(user);
-                console.log(userObj);
+
+                // setUserObj({
+                //     displayName: user.displayName,
+                //     uid: user.uid,
+                //     updateProfile: (args) => user.updateProfile(args),
+                // });
+                console.log(userObj.displayName);
             } else {
                 setIsLoggedIn(false);
+                setUserObj(null);
             }
             setInit(true);
         });
     });
 
-    console.log(userObj);
     return (
         <>
-            {init ? (
-                <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
-            ) : (
-                "initial..."
-            )}
-            <footer>&copy; {new Date().getFullYear()} 호위터 </footer>
+            <div className="bg-black min-h-full h-screen ">
+                {init ? <AppRouter isLoggedIn={isLoggedIn} /> : "initial..."}
+                <footer className="p-4 bg-white rounded-lg shadow items-center relative text-center dark:bg-gray-800 text-gray-400">
+                    &copy; {new Date().getFullYear()} 호위터
+                </footer>
+            </div>
         </>
     );
 }

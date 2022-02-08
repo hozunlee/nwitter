@@ -10,23 +10,18 @@ import Home from "routes/Home";
 import Profile from "routes/Profile";
 import Nav from "components/Nav";
 
-function AppRouter({ isLoggedIn, userObj }) {
-    console.log(isLoggedIn);
+function AppRouter({ isLoggedIn }) {
     return (
         <Router>
             {isLoggedIn && <Nav />}
             <Switch>
                 {isLoggedIn ? (
                     <>
-                        <Route
-                            path="/"
-                            exact
-                            render={() => <Home userObj={userObj} />}
-                        />
+                        <Route path="/" exact render={() => <Home />} />
                         <Route
                             path="/profile"
                             exact
-                            render={() => <Profile userObj={userObj} />}
+                            render={() => <Profile />}
                         />
                         <Redirect from="*" to="/" />
                     </>

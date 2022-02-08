@@ -12,17 +12,17 @@ const Profile = () => {
     const [attachment, setAttachment] = useState("");
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 
-    const history = useHistory();
-    const onLogOutClick = () => {
-        authService.signOut();
-        history.push("/");
-    };
-
     const refreshUser = () => {
         const user = authService.currentUser;
         setUserObj(Object.assign({}, user));
 
         //강제 렌더링을 위해 {} 비어있는 obj에 사본의 새 obj를 생성하는 형태
+    };
+
+    const history = useHistory();
+    const onLogOutClick = () => {
+        authService.signOut();
+        history.push("/");
     };
 
     const getMyNweets = async () => {

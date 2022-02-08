@@ -1,46 +1,14 @@
+import AuthForm from "components/AuthForm";
 import { authService, firebaseInstance } from "fbsetting";
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faTwitter,
+    faGoogle,
+    faGithub,
+} from "@fortawesome/free-brands-svg-icons";
 
 const Auth = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [newAccount, setANewaAccount] = useState(true);
-    const [error, setError] = useState("");
-
-    const onChange = (e) => {
-        const {
-            target: { name, value },
-        } = e;
-        // const {name, value} = event.target  상동!!!
-        if (name === "email") {
-            setEmail(value);
-        } else if (name === "password") {
-            setPassword(value);
-        }
-    };
-
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        let data;
-        try {
-            if (newAccount) {
-                data = await authService.createUserWithEmailAndPassword(
-                    email,
-                    password
-                );
-            } else {
-                data = await authService.signInWithEmailAndPassword(
-                    email,
-                    password
-                );
-            }
-            console.log(data);
-        } catch (error) {
-            setError(error.message);
-        }
-    };
-    const toggleAccount = () => setANewaAccount((prev) => !prev);
-
     const onClickSocial = async (event) => {
         const { name } = event.target;
         let provider;
@@ -54,52 +22,47 @@ const Auth = () => {
     };
 
     return (
-        <div className="sm:bg-indigo-800 lg:bg-red-400 flex-auto items-center text-center justify-center">
-            Auth
-            <form onSubmit={onSubmit}>
-                <input
-                    name="email"
-                    type="text"
-                    placeholder="Email"
-                    required
-                    value={email}
-                    onChange={onChange}
-                    className="underline"
-                />
-                <input
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={onChange}
-                    className="underline"
-                />
-                <input
-                    type="submit"
-                    value={newAccount ? "Create Account" : "Log In"}
-                    className="cursor-pointer"
-                />
-            </form>
-            <span onClick={toggleAccount}>
-                {newAccount ? "Sign in" : "Sign up"}{" "}
-            </span>
-            <div>
-                <button
-                    onClick={onClickSocial}
-                    name="google"
-                    className="py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700"
-                >
-                    Continue with Google
-                </button>
-                <button
-                    onClick={onClickSocial}
-                    name="github"
-                    className="py-2 px-4 font-bold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700"
-                >
-                    Continue with GitHub
-                </button>
+        <div className="flex flex-col w-100 h-screen items-center text-center justify-center ">
+            <FontAwesomeIcon
+                icon={faTwitter}
+                color={"#04AAFF"}
+                size="3x"
+                style={{ marginBottom: 30 }}
+            />
+            <div className="w-full max-w-md">
+                <div className="text-white text-2xl flex justify-center border-b-2 py-2 mb-4">
+                    Login
+                </div>
+                <AuthForm />
+                <div className="flex justify-between w-100 ">
+                    <button
+                        onClick={onClickSocial}
+                        name="google"
+                        className="m-auto px-2 py-2 w-70 font-semibold rounded-3xl shadow-md text-white bg-gray-500 hover:bg-gray-700 text-sm"
+                    >
+                        <span className="block">
+                            <FontAwesomeIcon
+                                icon={faGoogle}
+                                className="text-gray-200"
+                            />
+                        </span>
+                        Continue with Google
+                    </button>
+                    <button
+                        onClick={onClickSocial}
+                        name="github"
+                        className="m-auto px-2 py-2 w-70 font-bold rounded-3xl shadow-md text-white bg-gray-500 hover:bg-gray-700 text-sm"
+                    >
+                        <span className="block">
+                            <FontAwesomeIcon
+                                icon={faGithub}
+                                className="text-gray-200"
+                            />
+                        </span>
+                        Continue with GitHub
+                    </button>
+                </div>
             </div>
-            {error}
         </div>
     );
 };

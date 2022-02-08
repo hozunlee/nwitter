@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { userState } from "state/atom";
+import { useRecoilValue } from "recoil";
+import { useEffect } from "react/cjs/react.development";
 
 const Nav = () => {
+    const userObj = useRecoilValue(userState);
+
     return (
         <nav>
             <ul>
@@ -11,7 +16,7 @@ const Nav = () => {
             </ul>
             <ul>
                 <li>
-                    <Link to="/profile"> My Profile</Link>
+                    <Link to="/profile">{userObj.displayName}의 Profile</Link>
                 </li>
             </ul>
         </nav>
